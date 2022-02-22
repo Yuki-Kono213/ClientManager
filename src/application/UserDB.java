@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
+/**https://dev.mysql.com/
  * ユーザデータベースへのアクセステストクラス。
  */
 public class UserDB {
@@ -14,26 +14,25 @@ public class UserDB {
 	/**
 	 * テーブル名。
 	 */
-	private static final String TABLE_NAME = "TODO_USER";
+	private static final String TABLE_NAME = "CLIENT";
 
 	/**
 	 * テスト処理を実行します。
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		UserDB userDB = new UserDB();
+	public void UseClientDataBase(String[] args) {
 		
 		try{
 			// オブジェクトを生成
-			userDB.create();
+			create();
 			
 			// データ操作
-			userDB.execute(args);
+			execute(args);
 		}catch(Throwable t) {
 			t.printStackTrace();
 		}finally{
 			// オブジェクトを破棄
-			userDB.close();
+			close();
 		}
 	}
 	
@@ -62,7 +61,7 @@ public class UserDB {
 		throws ClassNotFoundException, SQLException{
 		// 下準備
 		Class.forName("org.h2.Driver");
-		_connection = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
+		_connection = DriverManager.getConnection("jdbc:h2:~/Client", "sa", "maru9685");
 		_statement = _connection.createStatement();
 	}
 	
@@ -99,7 +98,7 @@ public class UserDB {
 		if("select".equals(command)) {
 			executeSelect();
 		}else if("insert".equals(command)) {
-			executeInsert(args[1], args[2], args[3]);
+			executeInsert(args[1], Integer.parseInt(args[2]), args[3], Integer.parseInt(args[4]));
 		}else if("update".equals(command)) {
 			executeUpdate(args[1], args[2], args[3]);
 		}else if("delete".equals(command)) {
@@ -136,10 +135,10 @@ public class UserDB {
 	 * @param name
 	 * @param password
 	 */
-	private void executeInsert(String id, String name, String password)
+	private void executeInsert(String name, Integer age, String memo, Integer repeat)
 		throws SQLException{
 		// SQL文を発行
-		int updateCount = _statement.executeUpdate("INSERT INTO " + TABLE_NAME + " (ID,NAME,PASSWORD) VALUES ('"+id+"','"+name+"','"+password+"')");
+		int updateCount = _statement.executeUpdate("INSERT INTO " + TABLE_NAME + " (NAME,AGE,MEMO,REPEAT) VALUES ('"+name+"','"+age+"','"+memo+"','"+repeat+"')");
 		System.out.println("Insert: " + updateCount);
 	}
 	

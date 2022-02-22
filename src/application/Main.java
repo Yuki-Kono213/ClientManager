@@ -103,6 +103,7 @@ public class Main extends Application {
 				    public void handle(ActionEvent e) {
 				    	InputManager im = new InputManager();
 				    	ExcelWriter exw = new ExcelWriter();
+						UserDB userDB = new UserDB();
 				    	for(int i =0; i < inputTextNameList.size(); i++)
 				    	{
 				    		try {
@@ -127,11 +128,12 @@ public class Main extends Application {
 			    			im.period = Integer.parseInt(periodLabel.getText());
 			    			im.personCount = Integer.parseInt(personTextField.getText());
 			    			im.memo = memoTextField.getText();
+					    	exw.excelWrite(im);
+					    	userDB.UseClientDataBase(new String[] {"insert", im.name, "0",im.memo, "1"});
 			    		} 
 			    		catch (NumberFormatException nfex) {
 			    			
 			    		}
-				    	exw.excelWrite(im);
 	
 				    }
 				});
