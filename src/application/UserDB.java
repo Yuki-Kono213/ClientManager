@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /**https://dev.mysql.com/
  * ユーザデータベースへのアクセステストクラス。
  */
@@ -20,7 +23,7 @@ public class UserDB {
 	 * テスト処理を実行します。
 	 * @param args
 	 */
-	public void UseClientDataBase(String[] args) {
+	public void UseClientDataBase (String[] args) {
 		
 		try{
 			// オブジェクトを生成
@@ -45,13 +48,93 @@ public class UserDB {
 	 * Statementオブジェクトを保持します。
 	 */
 	private Statement _statement;
+
+	private static int client_ID;
 	
+	public int GetClient_ID() throws SQLException 
+	{
+		ResultSet resultSetID = null;
+		try {
+			create();
+			String SQLID = "SELECT ID FROM " + TABLE_NAME +" LAST_INSERT_ID";
+			resultSetID = _statement.executeQuery(SQLID);
+			resultSetID.last();
+			System.out.println(resultSetID);
+			client_ID = resultSetID.getInt("ID");
+		}
+		catch(Exception ex)
+		{
+			
+		}finally{
+			resultSetID.close();
+			close();
+		}
+		return client_ID;
+		
+	}
+	public int GetClient_ID(String name) throws SQLException 
+	{
+		ResultSet resultSetID = null;
+		try {
+			create();
+			String SQLID = "SELECT ID FROM " + TABLE_NAME +" WHERE NAME = '"+name+"'";
+			resultSetID = _statement.executeQuery(SQLID);
+			resultSetID.first();
+			System.out.println(resultSetID);
+			client_ID = resultSetID.getInt("ID");
+		}
+		catch(Exception ex)
+		{
+			
+		}finally{
+			resultSetID.close();
+			close();
+		}
+		return client_ID;
+		
+	}
 	/**
 	 * 構築します。
 	 */
 	public UserDB() {
 		_connection = null;
 		_statement = null;
+	}
+	
+	
+	public ObservableList<String> ReturnUserName(String name) throws ClassNotFoundException, SQLException 
+	{
+		ObservableList<String> items =FXCollections.observableArrayList();
+		ResultSet resultSet = null;
+		try {
+			create();
+			String SQL;
+			if(name != "") {
+				SQL = "SELECT * FROM " + TABLE_NAME + " WHERE NAME = '"+name+"'";
+			}
+			else 
+			{
+				SQL = "SELECT * FROM " + TABLE_NAME;
+			}
+			resultSet = _statement.executeQuery(SQL);
+			boolean br = resultSet.first();
+			if(br == false) {
+				return items;
+			}
+			do{
+				String addname = resultSet.getString("NAME");
+				items.add(addname);
+			}while(resultSet.next());
+		}
+		catch(Exception ex){
+
+			
+		}
+		finally {
+			close();
+			resultSet.close();
+		}
+		return items;
 	}
 	
 	/**
@@ -86,7 +169,50 @@ public class UserDB {
 			_connection = null;
 		}
 	}
-	
+
+	public boolean AlreadyExistCheck(String name) throws SQLException, ClassNotFoundException 
+	{
+		create();
+		String SQL = "SELECT * FROM CLIENT WHERE NAME = '"+name+"' LIMIT 1";
+		ResultSet resultSet = _statement.executeQuery(SQL);
+		boolean exist = false;
+		try{
+			exist = resultSet.first();
+			System.out.println(exist);
+			if(exist == false) {
+				System.out.println("存在しません");
+			}
+			else 
+			{
+				String SQLPlus = "UPDATE  "+ TABLE_NAME +" SET REPEAT = REPEAT + 1 WHERE NAME = '"+name+"'";
+				_statement.executeUpdate(SQLPlus);
+				System.out.println("存在します");
+
+			}
+			String SQLID = "SELECT ID FROM " + TABLE_NAME +" WHERE NAME = '"+name+"'";
+			ResultSet resultSetID = _statement.executeQuery(SQLID);
+			try {
+				resultSetID.first();
+				System.out.println(resultSetID);
+				client_ID = resultSetID.getInt("ID");
+			}
+			catch(Exception ex)
+			{
+
+			      System.out.println(ex);
+			}finally{
+				resultSetID.close();
+			}
+		}
+		catch(Exception e) 
+		{
+			System.out.println(e);
+		
+		}finally{
+			resultSet.close();
+		}
+		return exist;
+	}
 	/**
 	 * 実行します。
 	 * @param args
