@@ -6,6 +6,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class PaymentDB {
 
@@ -13,13 +18,13 @@ public class PaymentDB {
 		/**
 		 * テーブル名。
 		 */
-		private static final String TABLE_NAME = "CLIENT";
+		private static final String TABLE_NAME = "PAYMENT";
 
 		/**
 		 * テスト処理を実行します。
 		 * @param args
 		 */
-		public void UseClientDataBase(String[] args) {
+		public void UsePaymentDataBase(String[] args) {
 			
 			try{
 				// オブジェクトを生成
@@ -44,8 +49,9 @@ public class PaymentDB {
 		 * Statementオブジェクトを保持します。
 		 */
 		private Statement _statement;
+		private static Integer payment_ID;
 		
-		/**
+ 		/**
 		 * 構築します。
 		 */
 		public PaymentDB() {
@@ -97,15 +103,96 @@ public class PaymentDB {
 			if("select".equals(command)) {
 				executeSelect();
 			}else if("insert".equals(command)) {
-				executeInsert(args[1], Integer.parseInt(args[2]), args[3], Integer.parseInt(args[4]));
-			}else if("update".equals(command)) {
-				executeUpdate(args[1], args[2], args[3]);
-			}else if("delete".equals(command)) {
-				executeDelete(args[1]);
+				executeInsert(Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]), Long.parseLong(args[4]));
 			}
 		}
 		
-		/**
+		public int ReturnPaymentID(Long paymentTime)
+				throws SQLException{
+			
+				int payment_ID = 0;
+				ResultSet resultSet = null;
+				try {
+
+					create();
+
+					resultSet = _statement.executeQuery("SELECT * FROM " + TABLE_NAME + " WHERE PUBLISHED_AT = '"+paymentTime+"' ");
+					resultSet.first();
+					payment_ID = resultSet.getInt("ID");
+				}
+				catch(Exception ex){
+					
+					
+				}
+				finally {
+					close();
+					resultSet.close();
+				}
+			
+				
+				return payment_ID;
+			}
+		
+		public ObservableList<String> ReturnPaymentList(int id) throws ClassNotFoundException, SQLException 
+		{
+			ObservableList<String> items =FXCollections.observableArrayList();
+			ResultSet resultSet = null;
+			try {
+				create();
+				String SQL;
+				if(id > 0) {
+					SQL = "SELECT * FROM " + TABLE_NAME + " WHERE CLIENT_ID = '"+id+"'";
+				}
+				else 
+				{
+					return null;
+				}
+				resultSet = _statement.executeQuery(SQL);
+				boolean br = resultSet.first();
+				if(br == false) {
+					return items;
+				}
+				do{
+					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
+					Date date = new Date(resultSet.getLong("PUBLISHED_AT"));
+					String addname = formatter.format(date);
+				      System.out.println(addname);
+					items.add(addname);
+				}while(resultSet.next());
+			}
+			catch(Exception ex){
+
+			      System.out.println(ex);
+				
+			}
+			finally {
+				close();
+				resultSet.close();
+			}
+			return items;
+		}
+		
+		public Integer GetPaymentID(int id) throws SQLException 
+		{
+			ResultSet resultSetID = null;
+			try {
+				create();
+				String SQLID = "SELECT ID FROM " + TABLE_NAME +" WHERE CLIENT_ID = '"+id+"'";
+				resultSetID = _statement.executeQuery(SQLID);
+				resultSetID.last();
+				System.out.println(resultSetID);
+				payment_ID = resultSetID.getInt("ID");
+			}
+			catch(Exception ex)
+			{
+				
+			}finally{
+				resultSetID.close();
+				close();
+			}
+			return payment_ID;
+		}
+		/*
 		 * SELECT処理を実行します。
 		 */
 		private void executeSelect()
@@ -134,35 +221,12 @@ public class PaymentDB {
 		 * @param name
 		 * @param password
 		 */
-		private void executeInsert(String name, Integer age, String memo, Integer repeat)
+		private void executeInsert(Integer client_ID, String memo, Integer price, Long time)
 			throws SQLException{
 			// SQL文を発行
-			int updateCount = _statement.executeUpdate("INSERT INTO " + TABLE_NAME + " (NAME,AGE,MEMO,REPEAT) VALUES ('"+name+"','"+age+"','"+memo+"','"+repeat+"')");
+			int updateCount = _statement.executeUpdate("INSERT INTO " + TABLE_NAME + " (CLIENT_ID, MEMO ,PRICE, PUBLISHED_AT) VALUES ('"+client_ID+"','"+memo+"','"+price+"','"+time+"')");
 			System.out.println("Insert: " + updateCount);
-		}
-		
-		/**
-		 * UPDATE処理を実行します。
-		 * @param id
-		 * @param name
-		 * @param password
-		 */
-		private void executeUpdate(String id, String name, String password)
-			throws SQLException{
-			// SQL文を発行
-			int updateCount = _statement.executeUpdate("UPDATE " + TABLE_NAME + " SET NAME='"+name+"', PASSWORD='"+password+"' WHERE ID='" + id + "'");
-			System.out.println("Update: " + updateCount);
-		}
-		
-		/**
-		 * DELETE処理を実行します。
-		 * @param id
-		 */
-		private void executeDelete(String id)
-			throws SQLException{
-			// SQL文を発行
-			int updateCount = _statement.executeUpdate("DELETE FROM " + TABLE_NAME + " WHERE ID='" + id + "'");
-			System.out.println("Delete: " + updateCount);
+			
 		}
 		
 	}

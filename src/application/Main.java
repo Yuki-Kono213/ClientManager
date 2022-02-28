@@ -3,6 +3,7 @@ package application;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +35,6 @@ public class Main extends Application {
 				TextField nameTextField = new TextField();
 				grid.add(nameTextField,1,1);
 				
-				grid.add(new Label("ご到着日"),0,2);
 				
 				grid.add(new Label("ご到着日"),0,2);
 				grid.add(new Label("泊数"),1,2);
@@ -58,6 +58,8 @@ public class Main extends Application {
 				
 				DatePicker issueDatePicker = new DatePicker();
 				grid.add(issueDatePicker,4,3);
+				
+				issueDatePicker.setValue(LocalDate.now());
 	
 				TextField memoTextField = new TextField();
 				grid.add(memoTextField,5,3);
@@ -101,6 +103,37 @@ public class Main extends Application {
 					 
 				    @Override
 				    public void handle(ActionEvent e) {
+				    	for(int i =0; i < inputTextNameList.size(); i++)
+				    	{
+				    		try {
+				    			totalMoneyList.get(i).setText(Integer.toString((Integer.parseInt(inputTextPriceList.get(i).getText()) * 
+				    					Integer.parseInt(inputTextAmountList.get(i).getText()))));
+			
+				    		} 
+				    		catch (NumberFormatException nfex) {
+				    			if(inputTextAmountList.get(i).getText() == ""  && inputTextPriceList.get(i).getText() == ""  && inputTextNameList.get(i).getText() == "" ) 
+				    			{
+				    				totalMoneyList.get(i).setText("");
+				    			}
+				    			else 
+				    			{
+				    				return;
+				    			}
+				    		}
+				    	}
+				    	
+				    	int total = 0;
+				    	
+				    	for(Label text : totalMoneyList) 
+				    	{
+				    		if(text.getText() != "")
+				    		{
+				    			total += Integer.parseInt(text.getText()) ;
+				    			
+				    		}
+				    	}
+				    	
+				    	
 				    	InputManager im = new InputManager();
 				    	ExcelWriter exw = new ExcelWriter();
 						UserDB userDB = new UserDB();
@@ -114,7 +147,6 @@ public class Main extends Application {
 				    			im.priceList.add(price);
 				    			im.amountList.add(amount);
 				    					
-			
 				    		} 
 				    		catch (NumberFormatException nfex) {
 				    			totalMoneyList.get(i).setText("");
@@ -129,10 +161,35 @@ public class Main extends Application {
 			    			im.personCount = Integer.parseInt(personTextField.getText());
 			    			im.memo = memoTextField.getText();
 					    	exw.excelWrite(im);
-					    	userDB.UseClientDataBase(new String[] {"insert", im.name, "0",im.memo, "1"});
+					    	if(!userDB.AlreadyExistCheck(im.name)) 
+					    	{
+					    		userDB.UseClientDataBase(new String[] {"insert", im.name, "0","", "1"});
+					    	}
+					    	int id = userDB.GetClient_ID(im.name);
+					    	
+					    	PaymentDB pDB = new PaymentDB();
+					    	
+					    	pDB.UsePaymentDataBase(new String[] {"insert", Integer.toString(id) ,im.memo, Integer.toString(total), Long.toString(new Date().getTime())});
+					    	
+					    	Payment_ItemDB pIDB = new Payment_ItemDB();
+
+					    	int pid = pDB.GetPaymentID(id);
+					    	for(int i = 0; i < inputTextNameList.size(); i++) 
+					    	{
+					    		if(inputTextNameList.get(i).getText() != "" && inputTextPriceList.get(i).getText() != "" && inputTextAmountList.get(i).getText() != "" )
+					    		{
+					    			pIDB.UsePaymentItemDataBase(new String[] {"insert", 
+					    					inputTextNameList.get(i).getText() ,
+					    					inputTextAmountList.get(i).getText(), 
+					    					inputTextPriceList.get(i).getText(), 
+					    					Integer.toString(pid)});
+					    		}
+					    		
+					    	}
+					    	
 			    		} 
-			    		catch (NumberFormatException nfex) {
-			    			
+			    		catch (Exception ex) {
+			    			System.out.println(ex);
 			    		}
 	
 				    }
@@ -145,8 +202,7 @@ public class Main extends Application {
 				    	for(int i =0; i < inputTextNameList.size(); i++)
 				    	{
 				    		try {
-				    			totalMoneyList.get(i).setText(Integer.toString((Integer.parseInt(inputTextPriceList.get(i).getText()) * 
-				    					Integer.parseInt(inputTextAmountList.get(i).getText()))));
+				    			totalMoneyList.get(i).setText(Integer.toString((Integer.parseInt(inputTextPriceList.get(i).getText()) )));
 			
 				    		} 
 				    		catch (NumberFormatException nfex) {
@@ -155,11 +211,25 @@ public class Main extends Application {
 				    	}
 				    }
 				});
-		
+				
+				Button clientBtn = new Button("顧客データ表示");
+				clientBtn.setOnAction(new EventHandler<ActionEvent>() {
+				    @Override
+				    public void handle(ActionEvent e) {
+				    	ClientWindow cw = new ClientWindow();
+				    	try {
+							cw.start(new Stage());
+						} catch (ClassNotFoundException e1) {
+							// TODO 自動生成された catch ブロック
+							e1.printStackTrace();
+						}
+				    }
+				});
 				Scene scene = new Scene(grid, 900, 500);
 				primaryStage.setScene(scene);
 				grid.add(submitBtn, 1, 14);
 				grid.add(calcBtn, 2, 14);
+				grid.add(clientBtn, 3, 14);
 				primaryStage.setScene(scene);
 				primaryStage.show();
 			} catch(Exception e) {
@@ -181,7 +251,6 @@ public class Main extends Application {
 		        periodLabel.setText(Long.toString((departLong - arrivalLong) / one_date_time)); 
 			}
 	        catch (ParseException e1) {
-				// TODO 自動生成された catch ブロック
 				e1.printStackTrace();
 			}
     	}
