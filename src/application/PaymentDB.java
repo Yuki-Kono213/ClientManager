@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 import javafx.collections.FXCollections;
@@ -40,6 +43,46 @@ public class PaymentDB {
 			}
 		}
 		
+		public int CalcTodayCount(LocalDate time) throws SQLException 
+		{
+			int count = 0;
+			ResultSet resultSet = null;
+			try {
+
+				create();
+				ZonedDateTime zdt = time.atStartOfDay(ZoneOffset.ofHours(+9));
+				long beginlong = zdt.toInstant().toEpochMilli();
+
+				LocalDate endTime =LocalDate.of(time.getYear(), time.getMonthValue(), (time.getDayOfMonth() + 1)); 
+				zdt = endTime.atStartOfDay(ZoneOffset.ofHours(+9));
+				long endlong = zdt.toInstant().toEpochMilli();
+				
+
+			      System.out.println(beginlong);
+			      System.out.println(endlong);
+				
+				resultSet = _statement.executeQuery("SELECT COUNT(*) FROM " + TABLE_NAME + " WHERE PUBLISHED_AT BETWEEN "
+						+ " '"+beginlong+"' AND '"+endlong+"' ");
+				resultSet.first();
+				count = resultSet.getInt(1) + 1;
+				if(resultSet.getInt(1) <= 0) {
+						count = 1;	
+				};
+			}
+			catch(Exception ex){
+				
+
+			      System.out.println(ex);
+			}
+			finally {
+				close();
+				resultSet.close();
+			}
+			
+			return count;
+			
+		}
+		
 		/**
 		 * Connectionオブジェクトを保持します。
 		 */
@@ -66,7 +109,7 @@ public class PaymentDB {
 			throws ClassNotFoundException, SQLException{
 			// 下準備
 			Class.forName("org.h2.Driver");
-			_connection = DriverManager.getConnection("jdbc:h2:~/Client", "sa", "maru9685");
+			_connection = DriverManager.getConnection("jdbc:h2:./Client", "sa", "maru9685");
 			_statement = _connection.createStatement();
 		}
 		
@@ -156,7 +199,6 @@ public class PaymentDB {
 					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
 					Date date = new Date(resultSet.getLong("PUBLISHED_AT"));
 					String addname = formatter.format(date);
-				      System.out.println(addname);
 					items.add(addname);
 				}while(resultSet.next());
 			}
@@ -213,6 +255,28 @@ public class PaymentDB {
 			}finally{
 				resultSet.close();
 			}
+		}
+		
+		public String ReturnPaymentPrice(int id) 
+			throws SQLException{
+			ResultSet resultSet = null; 
+			String total = "";
+			try{
+
+				create();
+				resultSet = _statement.executeQuery("SELECT * FROM " + TABLE_NAME + " WHERE ID = '"+id+"'");
+				resultSet.first();
+				total = "合計 " + resultSet.getString("PRICE");
+			} catch (Exception e) {
+					// TODO 自動生成された catch ブロック
+					e.printStackTrace();
+			}
+			finally{
+				close();
+				resultSet.close();
+			}
+			
+			return total;
 		}
 		
 		/**

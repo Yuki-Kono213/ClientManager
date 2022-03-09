@@ -16,4 +16,7 @@ public class InputManager {
 	public Integer period;
 	public Integer personCount;
 	public String memo;
+	
+	public String CodeName;
+	public String Code;
 }

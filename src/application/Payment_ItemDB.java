@@ -65,7 +65,7 @@ public class Payment_ItemDB {
 			throws ClassNotFoundException, SQLException{
 			// 下準備
 			Class.forName("org.h2.Driver");
-			_connection = DriverManager.getConnection("jdbc:h2:~/Client", "sa", "maru9685");
+			_connection = DriverManager.getConnection("jdbc:h2:./Client", "sa", "maru9685");
 			_statement = _connection.createStatement();
 		}
 		
@@ -119,7 +119,7 @@ public class Payment_ItemDB {
 					return items;
 				}
 				do{
-					String addname = resultSet.getString("NAME");
+					String addname = resultSet.getString("NAME")+ " 単価" + resultSet.getString("PRICE") + " 個数" + resultSet.getString("AMOUNT");
 					items.add(addname);
 				}while(resultSet.next());
 			}

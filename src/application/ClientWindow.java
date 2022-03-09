@@ -2,7 +2,9 @@ package application;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -32,6 +34,13 @@ public class ClientWindow extends Application {
 			grid.add(new Label("名前"), 0, 1);
 			TextField nameTextField = new TextField();
 			grid.add(nameTextField, 1, 1);
+
+			List<Label> itemList= new ArrayList<Label>();
+			for(int i =0; i < 8; i++) {
+				
+				itemList.add(new Label());
+				grid.add(itemList.get(i), 2, i+3);
+			}
 			ListView<String> clientList = new ListView<>();
 			ObservableList<String> items = FXCollections.observableArrayList(new UserDB().ReturnUserName(""));
 			clientList.setItems(items);
@@ -63,7 +72,6 @@ public class ClientWindow extends Application {
 							ObservableList<String> payItems = FXCollections
 									.observableArrayList(new PaymentDB().ReturnPaymentList(paymentClient_ID));
 							paymentList.setItems(payItems);
-
 						} catch (ClassNotFoundException e) {
 							// TODO 自動生成された catch ブロック
 							e.printStackTrace();
@@ -85,8 +93,18 @@ public class ClientWindow extends Application {
 					      int payment_ID = new PaymentDB().ReturnPaymentID(payment_Time.getTime());
 						ObservableList<String> payItems = FXCollections
 								.observableArrayList(new Payment_ItemDB().ReturnPaymentItemList( payment_ID));
-	
-					      System.out.println(payItems);
+
+						for(int i = 0; i < itemList.size(); i++) 
+						{
+							itemList.get(i).setText("");
+							if(i < payItems.size()) {
+								itemList.get(i).setText(payItems.get(i));
+							}
+							else if(i == payItems.size()) 
+							{
+								itemList.get(i).setText(new PaymentDB().ReturnPaymentPrice(payment_ID));
+							}
+						}
 					}
 
 				} catch (Exception e) {

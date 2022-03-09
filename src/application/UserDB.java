@@ -122,7 +122,7 @@ public class UserDB {
 				return items;
 			}
 			do{
-				String addname = resultSet.getString("NAME");
+				String addname = resultSet.getString("NAME") ;
 				items.add(addname);
 			}while(resultSet.next());
 		}
@@ -144,7 +144,7 @@ public class UserDB {
 		throws ClassNotFoundException, SQLException{
 		// 下準備
 		Class.forName("org.h2.Driver");
-		_connection = DriverManager.getConnection("jdbc:h2:~/Client", "sa", "maru9685");
+		_connection = DriverManager.getConnection("jdbc:h2:./Client", "sa", "maru9685");
 		_statement = _connection.createStatement();
 	}
 	

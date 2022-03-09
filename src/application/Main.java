@@ -1,9 +1,16 @@
 package application;
 
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,6 +26,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -34,6 +42,11 @@ public class Main extends Application {
 				grid.add(new Label("名前"),0,1);
 				TextField nameTextField = new TextField();
 				grid.add(nameTextField,1,1);
+				
+				Label codeLabel = new Label();
+				grid.add(codeLabel,4,1);
+				
+				codeLabel.setText(new CodeCreater().CodeCreate(LocalDateTime.now()));
 				
 				
 				grid.add(new Label("ご到着日"),0,2);
@@ -98,6 +111,39 @@ public class Main extends Application {
 					totalMoneyList.get(i).setPrefWidth(150);
 					grid.add(totalMoneyList.get(i),6,i+4);
 				}
+				Label saveDirectoryLabel = new Label("保存先");
+				
+				Button saveDirectoryButton = new Button("保存先変更");
+				grid.add(saveDirectoryButton, 0, 14);
+
+				Path filePath = Paths.get("./config.txt").toAbsolutePath();
+				String text = Files.readString(filePath);
+				grid.add(saveDirectoryLabel, 0, 12);
+				Label saveDirectoryNameLabel = new Label(text);
+				grid.add(saveDirectoryNameLabel, 0, 13, 3, 1);
+				saveDirectoryButton.setOnAction(new EventHandler<ActionEvent>() {
+					 
+				    @Override
+				    public void handle(ActionEvent e) {
+					    DirectoryChooser fc = new DirectoryChooser();
+					    fc.setTitle("フォルダ選択");
+					    // 初期フォルダをホームに
+					    fc.setInitialDirectory(new File(System.getProperty("user.home")));
+					    File writeFile = fc.showDialog(null);
+					    if (writeFile != null) {
+					      System.out.println(text);
+					      saveDirectoryNameLabel.setText(writeFile.getPath());
+					      try{
+					    	  File configFile = new File("./src/application/config.txt");
+					    	  FileWriter filewriter = new FileWriter(configFile);
+					    	  filewriter.write(writeFile.getPath());
+					    	  filewriter.close();
+					    	}catch(IOException ex){
+					    	  System.out.println(ex);
+					    	}
+					    }
+				    }
+				});
 				Button submitBtn = new Button("入力反映");
 				submitBtn.setOnAction(new EventHandler<ActionEvent>() {
 					 
@@ -160,6 +206,8 @@ public class Main extends Application {
 			    			im.period = Integer.parseInt(periodLabel.getText());
 			    			im.personCount = Integer.parseInt(personTextField.getText());
 			    			im.memo = memoTextField.getText();
+			    			im.Code = codeLabel.getText();
+			    			im.CodeName = codeLabel.getText() + " " + im.name;
 					    	exw.excelWrite(im);
 					    	if(!userDB.AlreadyExistCheck(im.name)) 
 					    	{
@@ -186,6 +234,7 @@ public class Main extends Application {
 					    		}
 					    		
 					    	}
+							codeLabel.setText(new CodeCreater().CodeCreate(LocalDateTime.now()));
 					    	
 			    		} 
 			    		catch (Exception ex) {

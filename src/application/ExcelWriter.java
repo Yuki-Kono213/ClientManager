@@ -36,6 +36,12 @@ public class ExcelWriter {
 				priceCell.setCellValue(im.priceList.get(i));
 			}
 			
+			row0 = sheet.getRow(0);
+
+			Cell codeCell = row0.getCell(6);
+			
+			codeCell.setCellValue(im.Code);
+			
 			row0 = sheet.getRow(8);
 
 			Cell nameCell = row0.getCell(1);
@@ -74,7 +80,7 @@ public class ExcelWriter {
 			sheet.setForceFormulaRecalculation(true);
 		    FileOutputStream output = null;
 		    try{
-		    output = new FileOutputStream("sampleExcelout.xlsx");
+		    output = new FileOutputStream(""+im.CodeName+".xlsx");
 		      workbook.write(output);
 		      System.out.println("完了。。");
 		    }catch(IOException e){
