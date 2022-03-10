@@ -116,7 +116,7 @@ public class Main extends Application {
 				Button saveDirectoryButton = new Button("保存先変更");
 				grid.add(saveDirectoryButton, 0, 14);
 
-				Path filePath = Paths.get("./config.txt").toAbsolutePath();
+				Path filePath = Paths.get("config.txt").toAbsolutePath();
 				String text = Files.readString(filePath);
 				grid.add(saveDirectoryLabel, 0, 12);
 				Label saveDirectoryNameLabel = new Label(text);
