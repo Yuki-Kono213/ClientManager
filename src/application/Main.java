@@ -67,7 +67,8 @@ public class Main extends Application {
 				grid.add(departureDatePicker,2,3);
 	
 				TextField personTextField = new TextField();
-				grid.add(personTextField,3,3);
+				grid.add(personTextField,3,3); 
+				
 				
 				DatePicker issueDatePicker = new DatePicker();
 				grid.add(issueDatePicker,4,3);
