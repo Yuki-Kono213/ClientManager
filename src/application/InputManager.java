@@ -19,4 +19,5 @@ public class InputManager {
 	
 	public String CodeName;
 	public String Code;
+	public String Directory;
 }

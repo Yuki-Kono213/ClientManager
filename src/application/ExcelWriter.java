@@ -80,7 +80,7 @@ public class ExcelWriter {
 			sheet.setForceFormulaRecalculation(true);
 		    FileOutputStream output = null;
 		    try{
-		    output = new FileOutputStream(""+im.CodeName+".xlsx");
+		    output = new FileOutputStream(im.Directory + "/"+im.CodeName+".xlsx");
 		      workbook.write(output);
 		      System.out.println("完了。。");
 		    }catch(IOException e){

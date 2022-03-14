@@ -187,22 +187,23 @@ public class UserDB {
 				String SQLPlus = "UPDATE  "+ TABLE_NAME +" SET REPEAT = REPEAT + 1 WHERE NAME = '"+name+"'";
 				_statement.executeUpdate(SQLPlus);
 				System.out.println("存在します");
+				String SQLID = "SELECT ID FROM " + TABLE_NAME +" WHERE NAME = '"+name+"'";
+				ResultSet resultSetID = _statement.executeQuery(SQLID);
+				try {
+					resultSetID.first();
+					System.out.println(resultSetID);
+					client_ID = resultSetID.getInt("ID");
+				}
+				catch(Exception ex)
+				{
+
+				      System.out.println(ex);
+				}finally{
+					resultSetID.close();
+				}
 
 			}
-			String SQLID = "SELECT ID FROM " + TABLE_NAME +" WHERE NAME = '"+name+"'";
-			ResultSet resultSetID = _statement.executeQuery(SQLID);
-			try {
-				resultSetID.first();
-				System.out.println(resultSetID);
-				client_ID = resultSetID.getInt("ID");
-			}
-			catch(Exception ex)
-			{
-
-			      System.out.println(ex);
-			}finally{
-				resultSetID.close();
-			}
+			
 		}
 		catch(Exception e) 
 		{

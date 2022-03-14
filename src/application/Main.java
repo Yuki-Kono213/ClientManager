@@ -135,7 +135,7 @@ public class Main extends Application {
 					      System.out.println(text);
 					      saveDirectoryNameLabel.setText(writeFile.getPath());
 					      try{
-					    	  File configFile = new File("./src/application/config.txt");
+					    	  File configFile = new File("./config.txt");
 					    	  FileWriter filewriter = new FileWriter(configFile);
 					    	  filewriter.write(writeFile.getPath());
 					    	  filewriter.close();
@@ -209,6 +209,9 @@ public class Main extends Application {
 			    			im.memo = memoTextField.getText();
 			    			im.Code = codeLabel.getText();
 			    			im.CodeName = codeLabel.getText() + " " + im.name;
+			    			im.Directory = saveDirectoryNameLabel.getText();
+			    			System.out.println(im.Directory);
+			    			
 					    	exw.excelWrite(im);
 					    	if(!userDB.AlreadyExistCheck(im.name)) 
 					    	{
