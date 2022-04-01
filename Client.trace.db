@@ -9488,3 +9488,58 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki ko
 2022-03-14 09:32:07 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: 有効なデータがありません
 No data is available [2000-210]
+2022-03-25 17:55:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "Delete [*]* FROM PAYMENT_ITEM"; 期待されるステートメント "identifier"
+Syntax error in SQL statement "Delete [*]* FROM PAYMENT_ITEM"; expected "identifier"; SQL statement:
+Delete * FROM PAYMENT_ITEM [42001-210]
+2022-03-25 17:55:54 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "DELETE [*]* FROM PAYMENT_ITEM"; 期待されるステートメント "identifier"
+Syntax error in SQL statement "DELETE [*]* FROM PAYMENT_ITEM"; expected "identifier"; SQL statement:
+DELETE * FROM PAYMENT_ITEM [42001-210]
+2022-03-25 17:56:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: テーブル "CLEINT" が見つかりません
+Table "CLEINT" not found; SQL statement:
+DELETE FROM CLEINT [42102-210]
+2022-03-25 17:56:25 database: flush
+org.h2.message.DbException: 一般エラー: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]" [50000-210]
+	at org.h2.message.DbException.get(DbException.java:216)
+	at org.h2.message.DbException.convert(DbException.java:414)
+	at org.h2.mvstore.db.Store.lambda$new$0(Store.java:120)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:3296)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:585)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:461)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:4056)
+	at org.h2.mvstore.db.Store.<init>(Store.java:129)
+	at org.h2.engine.Database.<init>(Database.java:324)
+	at org.h2.engine.Engine.openSession(Engine.java:92)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at org.h2.Driver.connect(Driver.java:59)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:681)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:229)
+	at application.PaymentDB.create(PaymentDB.java:112)
+	at application.PaymentDB.CalcTodayCount(PaymentDB.java:52)
+	at application.CodeCreater.CodeCreate(CodeCreater.java:20)
+	at application.Main.start(Main.java:53)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:847)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:484)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:457)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:456)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: 一般エラー: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]" [50000-210]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:573)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:496)
+	... 30 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:1004)
+	at org.h2.mvstore.FileStore.open(FileStore.java:163)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:444)
+	... 24 more

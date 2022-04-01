@@ -1,6 +1,8 @@
 package application;
 
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -83,10 +85,14 @@ public class ExcelWriter {
 		    output = new FileOutputStream(im.Directory + "/"+im.CodeName+".xlsx");
 		      workbook.write(output);
 		      System.out.println("完了。。");
+		      File file = new File(im.Directory + "/"+im.CodeName+".xlsx");
+		      Desktop desktop = Desktop.getDesktop();
+		      desktop.open(file);
 		    }catch(IOException e){
 		      System.out.println(e.toString());
 		    }finally{
 		      try {
+		    	  
 		    	  if (output != null) {
 		    		  	output.close();
 		    	      }
