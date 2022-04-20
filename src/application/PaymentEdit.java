@@ -29,7 +29,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class PaymentEdit extends Application {
 
 	List<TextField> inputTextNameList= new ArrayList<TextField>();
 	List<TextField> inputTextPriceList= new ArrayList<TextField>();
@@ -48,6 +48,9 @@ public class Main extends Application {
 	TextField memoTextField = new TextField();
 	Label saveDirectoryNameLabel = new Label();
 	Label saveDirectoryNameLabel2 = new Label();
+	public String dateTime = "";
+	public String name = "";
+	public Integer ID;
 	public void start(Stage primaryStage) {
 		try {
 				GridPane grid = new GridPane();
@@ -58,6 +61,7 @@ public class Main extends Application {
 
 				grid.add(new Label("名前"),0,1);
 				grid.add(nameTextField,1,1);
+				nameTextField.setText(name);
 
 
 				grid.add(errorLabel,2,1,2,1);
@@ -229,32 +233,58 @@ public class Main extends Application {
 				    	}
 				    }
 				});
-				
-				Button clientBtn = new Button("顧客データ表示");
-				clientBtn.setOnAction(new EventHandler<ActionEvent>() {
-				    @Override
-				    public void handle(ActionEvent e) {
-				    	ClientWindow cw = new ClientWindow();
-				    	try {
-							cw.start(new Stage());
-						} catch (ClassNotFoundException e1) {
-							// TODO 自動生成された catch ブロック
-							e1.printStackTrace();
-						}
-				    }
-				});
+				DrawPaymentData(dateTime);
 				Scene scene = new Scene(grid, 900, 500);
 				primaryStage.setScene(scene);
 				grid.add(submitBtn, 1, 14);
 				grid.add(submitBtn2, 4, 14);
 				grid.add(calcBtn, 6, 1);
-				grid.add(clientBtn, 6, 14);
 				primaryStage.setScene(scene);
 				primaryStage.show();
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
 		}
+	private void DrawPaymentData(String dateTime) 
+	{
+		Date payment_Time;
+		try 
+		{
+			if(dateTime != null) {
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
+
+				payment_Time = formatter.parse(dateTime);
+			      int payment_ID = new PaymentDB().ReturnPaymentID(payment_Time.getTime());
+			      InputManager  payItems = new PaymentDB().ReturnPaymentBasicData(ID);
+			      payItems = new Payment_ItemDB().ReturnPaymentInputManager(payment_ID, payItems);
+			      
+
+			  	if(payItems.personCount != 0) {
+			  		personTextField.setText(payItems.personCount.toString());
+			  	}
+			  	if(payItems.departureDateTime != null) {
+			  		departureDatePicker.setValue(payItems.departureDateTime); 
+			  	}
+			  	if(payItems.arrivalDateTime != null) {
+			  		arrivalDatePicker.setValue(payItems.arrivalDateTime); 
+			  	}
+			  	
+			  	for(int i =0; i < payItems.nameList.size(); i++) 
+			  	{
+
+			  		inputTextNameList.get(i).setText(payItems.nameList.get(i));
+			  		inputTextPriceList.get(i).setText(Integer.toString(payItems.priceList.get(i)));
+			  		inputTextAmountList.get(i).setText(Integer.toString(payItems.amountList.get(i)));
+			  		
+			  	}
+			}
+
+		} catch (Exception e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		
+	}
 	public void SetItemDraw(int index) {
 		if(arrivalDatePicker.getValue() == null || departureDatePicker.getValue() == null ||issueDatePicker.getValue() == null) 
     	{
@@ -347,9 +377,7 @@ public class Main extends Application {
 	    	
 	    	PaymentDB pDB = new PaymentDB();
 	    	
-	    	pDB.UsePaymentDataBase(new String[] {"insert", Integer.toString(id) ,im.memo, 
-	    			Integer.toString(total), Long.toString(new Date().getTime()),im.arrivalDateTime.toString(),im.departureDateTime.toString(),
-	    			im.personCount.toString(), codeLabel.getText()});
+	    	pDB.UsePaymentDataBase(new String[] {"insert", Integer.toString(id) ,im.memo, Integer.toString(total), Long.toString(new Date().getTime())});
 	    	
 	    	Payment_ItemDB pIDB = new Payment_ItemDB();
 

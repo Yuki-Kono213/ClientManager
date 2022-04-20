@@ -136,6 +136,38 @@ public class Payment_ItemDB {
 			return items;
 		}
 		
+		public InputManager ReturnPaymentInputManager(int payment_ID, InputManager im)
+				throws SQLException{
+				ResultSet resultSet = null;
+				try {
+					create();
+					resultSet = _statement.executeQuery("SELECT * FROM " + TABLE_NAME + " WHERE PAYMENT_ID = '"+payment_ID+"'");
+
+					boolean br = resultSet.first();
+					if(br == false) {
+						return im;
+					}
+					do{
+						im.nameList.add( resultSet.getString("NAME"));
+						im.priceList.add( Integer.parseInt(resultSet.getString("PRICE")));
+						im.amountList.add(Integer.parseInt(resultSet.getString("AMOUNT")));
+					}while(resultSet.next());
+				}
+				catch(Exception ex){
+
+					
+				}
+				finally {
+					close();
+					resultSet.close();
+				}
+			
+				
+				return im;
+			}
+		
+		
+		
 		
 		/**
 		 * SELECT処理を実行します。

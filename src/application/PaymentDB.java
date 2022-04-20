@@ -146,7 +146,12 @@ public class PaymentDB {
 			if("select".equals(command)) {
 				executeSelect();
 			}else if("insert".equals(command)) {
-				executeInsert(Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]), Long.parseLong(args[4]));
+				executeInsert(Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]), Long.parseLong(args[4])
+						,args[5],args[6],Integer.parseInt(args[7]),args[8]);
+			}else if("update".equals(command)) {
+				executeUpdate(args[1], args[2], args[3]);
+			}else if("delete".equals(command)) {
+				executeDelete(args[1]);
 			}
 		}
 		
@@ -174,6 +179,41 @@ public class PaymentDB {
 			
 				
 				return payment_ID;
+		}
+		
+		public InputManager ReturnPaymentBasicData(Integer ID)
+				throws SQLException{
+			
+				InputManager im = new InputManager();
+				ResultSet resultSet = null;
+				try {
+
+					create();
+
+					resultSet = _statement.executeQuery("SELECT * FROM " + TABLE_NAME + " WHERE ID = '"+ID+"' ");
+					resultSet.first();
+
+				      System.out.println(resultSet.getString("DEPARTURE_AT"));
+				      System.out.println(resultSet.getString("ARRIVAL_AT"));
+				      System.out.println(resultSet.getInt("PERSON_COUNT"));
+				      System.out.println(resultSet.getString("PAYMENT_CODE"));
+					im.departureDateTime = TimeUtil.toLocalDateTime(resultSet.getString("DEPARTURE_AT"),"yyyy-MM-dd");
+					im.arrivalDateTime = TimeUtil.toLocalDateTime(resultSet.getString("ARRIVAL_AT"),"yyyy-MM-dd");
+					im.personCount = resultSet.getInt("PERSON_COUNT");
+					im.Code = resultSet.getString("PAYMENT_CODE");
+					
+				}
+				catch(Exception ex){
+					
+					
+				}
+				finally {
+					close();
+					resultSet.close();
+				}
+			
+				
+				return im;
 			}
 		
 		public ObservableList<String> ReturnPaymentList(int id) throws ClassNotFoundException, SQLException 
@@ -257,6 +297,24 @@ public class PaymentDB {
 			}
 		}
 		
+		private void executeUpdate(String id, String name, String password)
+				throws SQLException{
+				// SQL文を発行
+				int updateCount = _statement.executeUpdate("UPDATE " + TABLE_NAME + " SET NAME='"+name+"', PASSWORD='"+password+"' WHERE ID='" + id + "'");
+				System.out.println("Update: " + updateCount);
+		}
+		
+		/**
+		 * DELETE処理を実行します。
+		 * @param id
+		 */
+		private void executeDelete(String id)
+			throws SQLException{
+			// SQL文を発行
+			int updateCount = _statement.executeUpdate("DELETE FROM " + TABLE_NAME + " WHERE ID='" + id + "'");
+			System.out.println("Delete: " + updateCount);
+		}
+		
 		public String ReturnPaymentPrice(int id) 
 			throws SQLException{
 			ResultSet resultSet = null; 
@@ -285,10 +343,12 @@ public class PaymentDB {
 		 * @param name
 		 * @param password
 		 */
-		private void executeInsert(Integer client_ID, String memo, Integer price, Long time)
+		private void executeInsert(Integer client_ID, String memo, Integer price, Long time, String arrival, String departure, Integer count,String code)
 			throws SQLException{
 			// SQL文を発行
-			int updateCount = _statement.executeUpdate("INSERT INTO " + TABLE_NAME + " (CLIENT_ID, MEMO ,PRICE, PUBLISHED_AT) VALUES ('"+client_ID+"','"+memo+"','"+price+"','"+time+"')");
+			int updateCount = _statement.executeUpdate("INSERT INTO " + TABLE_NAME + 
+					" (CLIENT_ID, MEMO ,PRICE, PUBLISHED_AT, ARRIVAL_AT, DEPARTURE_AT, PERSON_COUNT,PAYMENT_CODE) VALUES "
+					+ "('"+client_ID+"','"+memo+"','"+price+"','"+time+"','"+arrival+"','"+departure+"','"+count+"','"+code+"')");
 			System.out.println("Insert: " + updateCount);
 			
 		}

@@ -12,9 +12,11 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -22,9 +24,14 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class ClientWindow extends Application {
-	@Override
+	private static String dateTime;
+	private static String name;
+	private static Integer ID;
 	public void start(Stage primaryStage) throws ClassNotFoundException {
 		try {
+			dateTime = "";
+			name = "";
+			ID = 0;
 			GridPane grid = new GridPane();
 			grid.setAlignment(Pos.CENTER);
 			grid.setHgap(10);
@@ -35,6 +42,25 @@ public class ClientWindow extends Application {
 			TextField nameTextField = new TextField();
 			grid.add(nameTextField, 1, 1);
 
+			Button editPaymentButton = new Button("編集");
+			grid.add(editPaymentButton, 3, 1);
+			editPaymentButton.setOnAction(new EventHandler<ActionEvent>() {
+				
+			    @Override
+			    public void handle(ActionEvent e) {
+
+			    	if(dateTime != "") 
+			    	{
+					      System.out.println(dateTime);
+				    	PaymentEdit paymentEdit = new PaymentEdit();
+				    	paymentEdit.dateTime = dateTime;
+				    	paymentEdit.name = name;
+				    	paymentEdit.ID = ID;
+				    	paymentEdit.start(primaryStage);
+			    	}
+			    }
+			});
+			
 			List<Label> itemList= new ArrayList<Label>();
 			for(int i =0; i < 8; i++) {
 				
@@ -67,6 +93,7 @@ public class ClientWindow extends Application {
 			clientList.getSelectionModel().selectedItemProperty()
 					.addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
 						int paymentClient_ID;
+						name = new_val;
 						try {
 							paymentClient_ID = new UserDB().GetClient_ID(new_val);
 							ObservableList<String> payItems = FXCollections
@@ -87,10 +114,12 @@ public class ClientWindow extends Application {
 				try 
 				{
 					if(new_val != null) {
+						dateTime = new_val;
 						SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
 	
 						payment_Time = formatter.parse(new_val);
 					      int payment_ID = new PaymentDB().ReturnPaymentID(payment_Time.getTime());
+					      ID = payment_ID;
 						ObservableList<String> payItems = FXCollections
 								.observableArrayList(new Payment_ItemDB().ReturnPaymentItemList( payment_ID));
 
