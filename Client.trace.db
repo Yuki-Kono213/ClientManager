@@ -9922,3 +9922,751 @@ SELECT * FROM PAYMENT WHERE PUBLISHED_AT = 'Wed Apr 20 07:34:21 JST 2022' [22018
 org.h2.jdbc.JdbcSQLDataException: データ変換中にエラーが発生しました "Wed Apr 20 07:34:21 JST 2022"
 Data conversion error converting "Wed Apr 20 07:34:21 JST 2022"; SQL statement:
 SELECT * FROM PAYMENT WHERE PUBLISHED_AT = 'Wed Apr 20 07:34:21 JST 2022' [22018-210]
+2022-04-21 15:37:16 database: flush
+org.h2.message.DbException: 一般エラー: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]" [50000-210]
+	at org.h2.message.DbException.get(DbException.java:216)
+	at org.h2.message.DbException.convert(DbException.java:414)
+	at org.h2.mvstore.db.Store.lambda$new$0(Store.java:120)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:3296)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:585)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:461)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:4056)
+	at org.h2.mvstore.db.Store.<init>(Store.java:129)
+	at org.h2.engine.Database.<init>(Database.java:324)
+	at org.h2.engine.Engine.openSession(Engine.java:92)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at org.h2.Driver.connect(Driver.java:59)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:681)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:229)
+	at application.PaymentDB.create(PaymentDB.java:112)
+	at application.PaymentDB.CalcTodayCount(PaymentDB.java:52)
+	at application.CodeCreater.CodeCreate(CodeCreater.java:20)
+	at application.Main.start(Main.java:67)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:847)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:484)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:457)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:456)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: 一般エラー: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]" [50000-210]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:573)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:496)
+	... 30 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:1004)
+	at org.h2.mvstore.FileStore.open(FileStore.java:163)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:444)
+	... 24 more
+2022-04-21 15:48:17 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: 列 "CLIENT_ID" が見つかりません
+Column "CLIENT_ID" not found; SQL statement:
+DELETE FROM PAYMENT_ITEM WHERE CLIENT_ID='39' [42122-210]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:521)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:496)
+	at org.h2.message.DbException.get(DbException.java:227)
+	at org.h2.message.DbException.get(DbException.java:203)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:248)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:230)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.expression.condition.Comparison.optimize(Comparison.java:139)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.dml.Delete.prepare(Delete.java:112)
+	at org.h2.command.Parser.prepareCommand(Parser.java:557)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:615)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:553)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeUpdateInternal(JdbcStatement.java:186)
+	at org.h2.jdbc.JdbcStatement.executeUpdate(JdbcStatement.java:143)
+	at application.Payment_ItemDB.executeDeleteClient(Payment_ItemDB.java:217)
+	at application.Payment_ItemDB.execute(Payment_ItemDB.java:109)
+	at application.PaymentDB.executeDelete(PaymentDB.java:311)
+	at application.PaymentDB.execute(PaymentDB.java:154)
+	at application.PaymentDB.UsePaymentDataBase(PaymentDB.java:37)
+	at application.ClientWindow$2.handle(ClientWindow.java:77)
+	at application.ClientWindow$2.handle(ClientWindow.java:1)
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:234)
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:191)
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198)
+	at javafx.graphics/javafx.scene.Node.fireEvent(Node.java:8792)
+	at javafx.controls/javafx.scene.control.Button.fire(Button.java:203)
+	at javafx.controls/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:208)
+	at javafx.controls/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274)
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:234)
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:191)
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198)
+	at javafx.graphics/javafx.scene.Scene$MouseHandler.process(Scene.java:3897)
+	at javafx.graphics/javafx.scene.Scene.processMouseEvent(Scene.java:1878)
+	at javafx.graphics/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2623)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450)
+	at javafx.graphics/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:424)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449)
+	at javafx.graphics/com.sun.glass.ui.View.handleMouseEvent(View.java:557)
+	at javafx.graphics/com.sun.glass.ui.View.notifyMouse(View.java:943)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-04-21 15:49:15 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: 列 "CLIENT_ID" が見つかりません
+Column "CLIENT_ID" not found; SQL statement:
+DELETE FROM PAYMENT_ITEM WHERE CLIENT_ID='39' [42122-210]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:521)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:496)
+	at org.h2.message.DbException.get(DbException.java:227)
+	at org.h2.message.DbException.get(DbException.java:203)
+	at org.h2.expression.ExpressionColumn.getColumnException(ExpressionColumn.java:248)
+	at org.h2.expression.ExpressionColumn.optimizeOther(ExpressionColumn.java:230)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:213)
+	at org.h2.expression.condition.Comparison.optimize(Comparison.java:139)
+	at org.h2.expression.Expression.optimizeCondition(Expression.java:148)
+	at org.h2.command.dml.Delete.prepare(Delete.java:112)
+	at org.h2.command.Parser.prepareCommand(Parser.java:557)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:615)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:553)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeUpdateInternal(JdbcStatement.java:186)
+	at org.h2.jdbc.JdbcStatement.executeUpdate(JdbcStatement.java:143)
+	at application.Payment_ItemDB.executeDeleteClient(Payment_ItemDB.java:219)
+	at application.Payment_ItemDB.execute(Payment_ItemDB.java:111)
+	at application.PaymentDB.executeDelete(PaymentDB.java:311)
+	at application.PaymentDB.execute(PaymentDB.java:154)
+	at application.PaymentDB.UsePaymentDataBase(PaymentDB.java:37)
+	at application.ClientWindow$2.handle(ClientWindow.java:77)
+	at application.ClientWindow$2.handle(ClientWindow.java:1)
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:234)
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:191)
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198)
+	at javafx.graphics/javafx.scene.Node.fireEvent(Node.java:8792)
+	at javafx.controls/javafx.scene.control.Button.fire(Button.java:203)
+	at javafx.controls/com.sun.javafx.scene.control.behavior.ButtonBehavior.mouseReleased(ButtonBehavior.java:208)
+	at javafx.controls/com.sun.javafx.scene.control.inputmap.InputMap.handle(InputMap.java:274)
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
+	at javafx.base/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:234)
+	at javafx.base/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:191)
+	at javafx.base/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
+	at javafx.base/javafx.event.Event.fireEvent(Event.java:198)
+	at javafx.graphics/javafx.scene.Scene$MouseHandler.process(Scene.java:3897)
+	at javafx.graphics/javafx.scene.Scene.processMouseEvent(Scene.java:1878)
+	at javafx.graphics/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2623)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:411)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.run(GlassViewEventHandler.java:301)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.lambda$handleMouseEvent$2(GlassViewEventHandler.java:450)
+	at javafx.graphics/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:424)
+	at javafx.graphics/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:449)
+	at javafx.graphics/com.sun.glass.ui.View.handleMouseEvent(View.java:557)
+	at javafx.graphics/com.sun.glass.ui.View.notifyMouse(View.java:943)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+2022-04-21 16:07:47 database: flush
+org.h2.message.DbException: 一般エラー: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]" [50000-210]
+	at org.h2.message.DbException.get(DbException.java:216)
+	at org.h2.message.DbException.convert(DbException.java:414)
+	at org.h2.mvstore.db.Store.lambda$new$0(Store.java:120)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:3296)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:585)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:461)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:4056)
+	at org.h2.mvstore.db.Store.<init>(Store.java:129)
+	at org.h2.engine.Database.<init>(Database.java:324)
+	at org.h2.engine.Engine.openSession(Engine.java:92)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at org.h2.Driver.connect(Driver.java:59)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:681)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:229)
+	at application.PaymentDB.create(PaymentDB.java:112)
+	at application.PaymentDB.CalcTodayCount(PaymentDB.java:52)
+	at application.CodeCreater.CodeCreate(CodeCreater.java:20)
+	at application.PaymentEdit.start(PaymentEdit.java:71)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:847)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:484)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:457)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:456)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: 一般エラー: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]" [50000-210]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:573)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:496)
+	... 30 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:1004)
+	at org.h2.mvstore.FileStore.open(FileStore.java:163)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:444)
+	... 24 more
+2022-04-21 16:07:55 database: flush
+org.h2.message.DbException: 一般エラー: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]" [50000-210]
+	at org.h2.message.DbException.get(DbException.java:216)
+	at org.h2.message.DbException.convert(DbException.java:414)
+	at org.h2.mvstore.db.Store.lambda$new$0(Store.java:120)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:3296)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:585)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:461)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:4056)
+	at org.h2.mvstore.db.Store.<init>(Store.java:129)
+	at org.h2.engine.Database.<init>(Database.java:324)
+	at org.h2.engine.Engine.openSession(Engine.java:92)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at org.h2.Driver.connect(Driver.java:59)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:681)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:229)
+	at application.PaymentDB.create(PaymentDB.java:112)
+	at application.PaymentDB.CalcTodayCount(PaymentDB.java:52)
+	at application.CodeCreater.CodeCreate(CodeCreater.java:20)
+	at application.Main.start(Main.java:67)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:847)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:484)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:457)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:456)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: 一般エラー: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]" [50000-210]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:573)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:496)
+	... 30 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:1004)
+	at org.h2.mvstore.FileStore.open(FileStore.java:163)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:444)
+	... 24 more
+2022-04-21 16:13:14 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: データ変換中にエラーが発生しました "null"
+Data conversion error converting "null"; SQL statement:
+SELECT * FROM PAYMENT WHERE ID = 'null' [22018-210]
+2022-04-21 16:14:21 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: データ変換中にエラーが発生しました "null"
+Data conversion error converting "null"; SQL statement:
+SELECT * FROM PAYMENT WHERE ID = 'null' [22018-210]
+2022-04-21 16:16:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: データ変換中にエラーが発生しました "null"
+Data conversion error converting "null"; SQL statement:
+SELECT * FROM PAYMENT WHERE ID = 'null' [22018-210]
+2022-04-21 16:19:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: データ変換中にエラーが発生しました "null"
+Data conversion error converting "null"; SQL statement:
+SELECT * FROM PAYMENT WHERE ID = 'null' [22018-210]
+2022-04-21 16:21:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: データ変換中にエラーが発生しました "null"
+Data conversion error converting "null"; SQL statement:
+SELECT * FROM PAYMENT WHERE ID = 'null' [22018-210]
+2022-04-21 16:21:54 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: テーブル "INTO" が見つかりません
+Table "INTO" not found; SQL statement:
+UPDATE INTO PAYMENT (CLIENT_ID, MEMO ,PRICE, PUBLISHED_AT, ARRIVAL_AT, DEPARTURE_AT, PERSON_COUNT,PAYMENT_CODE) VALUES ('23','','20000','1650525714523','2022-04-01','2022-04-06','5','220421-01' WHERE ID = '40') [42102-210]
+2022-04-21 16:21:54 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: 有効なデータがありません
+No data is available [2000-210]
+2022-04-21 16:23:36 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: テーブル "PAYMENTSET" が見つかりません
+Table "PAYMENTSET" not found; SQL statement:
+UPDATE PAYMENTSET (CLIENT_ID, MEMO ,PRICE, PUBLISHED_AT, ARRIVAL_AT, DEPARTURE_AT, PERSON_COUNT,PAYMENT_CODE) VALUES ('23','','20000','1650525816694','2022-04-01','2022-04-05','5','220421-01' WHERE ID = '40') [42102-210]
+2022-04-21 16:23:36 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: 有効なデータがありません
+No data is available [2000-210]
+2022-04-21 16:24:07 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET (CLIENT_ID, MEMO ,PRICE, PUBLISHED_AT, ARRIVAL_AT, DEPARTURE_AT, PERSON_COUNT,PAYMENT_CODE) [*]VALUES ('23','','20000','1650525847969','2022-04-01','2022-04-05','5','220421-01' WHERE ID = '40')"; 期待されるステートメント "="
+Syntax error in SQL statement "UPDATE PAYMENT SET (CLIENT_ID, MEMO ,PRICE, PUBLISHED_AT, ARRIVAL_AT, DEPARTURE_AT, PERSON_COUNT,PAYMENT_CODE) [*]VALUES ('23','','20000','1650525847969','2022-04-01','2022-04-05','5','220421-01' WHERE ID = '40')"; expected "="; SQL statement:
+UPDATE PAYMENT SET (CLIENT_ID, MEMO ,PRICE, PUBLISHED_AT, ARRIVAL_AT, DEPARTURE_AT, PERSON_COUNT,PAYMENT_CODE) VALUES ('23','','20000','1650525847969','2022-04-01','2022-04-05','5','220421-01' WHERE ID = '40') [42001-210]
+2022-04-21 16:24:07 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: 有効なデータがありません
+No data is available [2000-210]
+2022-04-21 16:28:32 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET CLIENT_ID = '23' [*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526112174'ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5'PAYMENT_CODE = '220421-01' WHERE ID = '40'"
+Syntax error in SQL statement "UPDATE PAYMENT SET CLIENT_ID = '23' [*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526112174'ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5'PAYMENT_CODE = '220421-01' WHERE ID = '40'"; SQL statement:
+UPDATE PAYMENT SET CLIENT_ID = '23' MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526112174'ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5'PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]
+2022-04-21 16:28:32 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: 有効なデータがありません
+No data is available [2000-210]
+2022-04-21 16:29:55 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET CLIENT_ID = '23' [*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526195138' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5'PAYMENT_CODE = '220421-01' WHERE ID = '40'"
+Syntax error in SQL statement "UPDATE PAYMENT SET CLIENT_ID = '23' [*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526195138' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5'PAYMENT_CODE = '220421-01' WHERE ID = '40'"; SQL statement:
+UPDATE PAYMENT SET CLIENT_ID = '23' MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526195138' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5'PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]
+2022-04-21 16:29:55 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: 有効なデータがありません
+No data is available [2000-210]
+2022-04-21 16:30:50 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET CLIENT_ID = '23' [*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40'"
+Syntax error in SQL statement "UPDATE PAYMENT SET CLIENT_ID = '23' [*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40'"; SQL statement:
+UPDATE PAYMENT SET CLIENT_ID = '23' MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]
+2022-04-21 16:30:50 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: 有効なデータがありません
+No data is available [2000-210]
+2022-04-21 16:31:57 database: flush
+org.h2.message.DbException: 一般エラー: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]" [50000-210]
+	at org.h2.message.DbException.get(DbException.java:216)
+	at org.h2.message.DbException.convert(DbException.java:414)
+	at org.h2.mvstore.db.Store.lambda$new$0(Store.java:120)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:3296)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:585)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:461)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:4056)
+	at org.h2.mvstore.db.Store.<init>(Store.java:129)
+	at org.h2.engine.Database.<init>(Database.java:324)
+	at org.h2.engine.Engine.openSession(Engine.java:92)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at org.h2.util.JdbcUtils.getConnection(JdbcUtils.java:288)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:807)
+	at org.h2.server.web.WebApp.login(WebApp.java:1033)
+	at org.h2.server.web.WebApp.process(WebApp.java:226)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:176)
+	at org.h2.server.web.WebThread.process(WebThread.java:153)
+	at org.h2.server.web.WebThread.run(WebThread.java:102)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: 一般エラー: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]" [50000-210]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:573)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:496)
+	... 22 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:1004)
+	at org.h2.mvstore.FileStore.open(FileStore.java:163)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:444)
+	... 16 more
+2022-04-21 16:32:04 database: flush
+org.h2.message.DbException: 一般エラー: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]" [50000-210]
+	at org.h2.message.DbException.get(DbException.java:216)
+	at org.h2.message.DbException.convert(DbException.java:414)
+	at org.h2.mvstore.db.Store.lambda$new$0(Store.java:120)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:3296)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:585)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:461)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:4056)
+	at org.h2.mvstore.db.Store.<init>(Store.java:129)
+	at org.h2.engine.Database.<init>(Database.java:324)
+	at org.h2.engine.Engine.openSession(Engine.java:92)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at org.h2.util.JdbcUtils.getConnection(JdbcUtils.java:288)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:807)
+	at org.h2.server.web.WebApp.login(WebApp.java:1033)
+	at org.h2.server.web.WebApp.process(WebApp.java:226)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:176)
+	at org.h2.server.web.WebThread.process(WebThread.java:153)
+	at org.h2.server.web.WebThread.run(WebThread.java:102)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: 一般エラー: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]" [50000-210]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:573)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:496)
+	... 22 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:1004)
+	at org.h2.mvstore.FileStore.open(FileStore.java:163)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:444)
+	... 16 more
+2022-04-21 16:32:21 database: flush
+org.h2.message.DbException: 一般エラー: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]" [50000-210]
+	at org.h2.message.DbException.get(DbException.java:216)
+	at org.h2.message.DbException.convert(DbException.java:414)
+	at org.h2.mvstore.db.Store.lambda$new$0(Store.java:120)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:3296)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:585)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:461)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:4056)
+	at org.h2.mvstore.db.Store.<init>(Store.java:129)
+	at org.h2.engine.Database.<init>(Database.java:324)
+	at org.h2.engine.Engine.openSession(Engine.java:92)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at org.h2.util.JdbcUtils.getConnection(JdbcUtils.java:288)
+	at org.h2.server.web.WebServer.getConnection(WebServer.java:807)
+	at org.h2.server.web.WebApp.login(WebApp.java:1033)
+	at org.h2.server.web.WebApp.process(WebApp.java:226)
+	at org.h2.server.web.WebApp.processRequest(WebApp.java:176)
+	at org.h2.server.web.WebThread.process(WebThread.java:153)
+	at org.h2.server.web.WebThread.run(WebThread.java:102)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: 一般エラー: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]" [50000-210]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:573)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:496)
+	... 22 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:1004)
+	at org.h2.mvstore.FileStore.open(FileStore.java:163)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:444)
+	... 16 more
+2022-04-21 16:33:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET CLIENT_ID = '23' [[*]*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40'"; 期待されるステートメント "INTERSECTS, NOT, EXISTS, UNIQUE, INTERSECTS"
+Syntax error in SQL statement "UPDATE PAYMENT SET CLIENT_ID = '23' [[*]*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40'"; expected "INTERSECTS, NOT, EXISTS, UNIQUE, INTERSECTS"; SQL statement:
+UPDATE PAYMENT SET CLIENT_ID = '23' [*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42001-210]
+2022-04-21 16:33:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET CLIENT_ID = '23' [*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40'"
+Syntax error in SQL statement "UPDATE PAYMENT SET CLIENT_ID = '23' [*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40'"; SQL statement:
+UPDATE PAYMENT SET CLIENT_ID = '23' MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]
+2022-04-21 16:34:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET CLIENT_ID = 23 [*]MEMO = '' PRICE = 20000  PUBLISHED_AT = 1650526250688 ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = 5 PAYMENT_CODE = '220421-01' WHERE ID = 40"
+Syntax error in SQL statement "UPDATE PAYMENT SET CLIENT_ID = 23 [*]MEMO = '' PRICE = 20000  PUBLISHED_AT = 1650526250688 ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = 5 PAYMENT_CODE = '220421-01' WHERE ID = 40"; SQL statement:
+UPDATE PAYMENT SET CLIENT_ID = 23 MEMO = '' PRICE = 20000  PUBLISHED_AT = 1650526250688 ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = 5 PAYMENT_CODE = '220421-01' WHERE ID = 40 [42000-210]
+2022-04-21 16:35:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET CLIENT_ID = 23 [*]MEMO = '' PRICE = 20000  PUBLISHED_AT = 1650526250688 ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = 5 PAYMENT_CODE = '220421-01' WHERE ID = 40"
+Syntax error in SQL statement "UPDATE PAYMENT SET CLIENT_ID = 23 [*]MEMO = '' PRICE = 20000  PUBLISHED_AT = 1650526250688 ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = 5 PAYMENT_CODE = '220421-01' WHERE ID = 40"; SQL statement:
+UPDATE PAYMENT SET CLIENT_ID = 23 MEMO = '' PRICE = 20000  PUBLISHED_AT = 1650526250688 ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = 5 PAYMENT_CODE = '220421-01' WHERE ID = 40 [42000-210]
+2022-04-21 16:39:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET CLIENT_ID = '23' [*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]"
+Syntax error in SQL statement "UPDATE PAYMENT SET CLIENT_ID = '23' [*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]"; SQL statement:
+UPDATE PAYMENT SET CLIENT_ID = '23' MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210] [42000-210]
+2022-04-21 16:39:19 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET CLIENT_ID = '23' [*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]"
+Syntax error in SQL statement "UPDATE PAYMENT SET CLIENT_ID = '23' [*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]"; SQL statement:
+UPDATE PAYMENT SET CLIENT_ID = '23' MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210] [42000-210]
+2022-04-21 16:40:58 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET ARRIVAL_AT = '2022-04-01' [*]DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40'"
+Syntax error in SQL statement "UPDATE PAYMENT SET ARRIVAL_AT = '2022-04-01' [*]DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40'"; SQL statement:
+UPDATE PAYMENT SET ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]
+2022-04-21 16:41:05 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET  PERSON_COUNT = '5' [*]PAYMENT_CODE = '220421-01' WHERE ID = '40'"
+Syntax error in SQL statement "UPDATE PAYMENT SET  PERSON_COUNT = '5' [*]PAYMENT_CODE = '220421-01' WHERE ID = '40'"; SQL statement:
+UPDATE PAYMENT SET  PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]
+2022-04-21 16:41:18 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET  PERSON_COUNT = 5 [*]PAYMENT_CODE = '220421-01' WHERE ID = '40'"
+Syntax error in SQL statement "UPDATE PAYMENT SET  PERSON_COUNT = 5 [*]PAYMENT_CODE = '220421-01' WHERE ID = '40'"; SQL statement:
+UPDATE PAYMENT SET  PERSON_COUNT = 5 PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]
+2022-04-21 16:41:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET  PERSON_COUNT = '5' [*]PAYMENT_CODE = '220421-01' WHERE ID = '40'"
+Syntax error in SQL statement "UPDATE PAYMENT SET  PERSON_COUNT = '5' [*]PAYMENT_CODE = '220421-01' WHERE ID = '40'"; SQL statement:
+UPDATE PAYMENT SET  PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]
+2022-04-21 16:41:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET  PERSON_COUNT = '5' [*]PAYMENT_CODE = '220421-01' WHERE ID = '40'"
+Syntax error in SQL statement "UPDATE PAYMENT SET  PERSON_COUNT = '5' [*]PAYMENT_CODE = '220421-01' WHERE ID = '40'"; SQL statement:
+UPDATE PAYMENT SET  PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]
+2022-04-21 16:42:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET  PERSON_COUNT = '5' [*]PAYMENT_CODE = '220421-01' WHERE ID = '40'"
+Syntax error in SQL statement "UPDATE PAYMENT SET  PERSON_COUNT = '5' [*]PAYMENT_CODE = '220421-01' WHERE ID = '40'"; SQL statement:
+UPDATE PAYMENT SET  PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]
+2022-04-21 16:43:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET  PERSON_COUNT = '5'\3000[*]PAYMENT_CODE = '220421-01' WHERE ID = '40'"
+Syntax error in SQL statement "UPDATE PAYMENT SET  PERSON_COUNT = '5'\3000[*]PAYMENT_CODE = '220421-01' WHERE ID = '40'"; SQL statement:
+UPDATE PAYMENT SET  PERSON_COUNT = '5'　PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]
+2022-04-21 16:43:14 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET  PERSON_COUNT = '5' [*]PAYMENT_CODE = '220421-01' WHERE ID = '40'"
+Syntax error in SQL statement "UPDATE PAYMENT SET  PERSON_COUNT = '5' [*]PAYMENT_CODE = '220421-01' WHERE ID = '40'"; SQL statement:
+UPDATE PAYMENT SET  PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]
+2022-04-21 16:43:19 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET PERSON_COUNT = '5' [*]PAYMENT_CODE = '220421-01' WHERE ID = '40'"
+Syntax error in SQL statement "UPDATE PAYMENT SET PERSON_COUNT = '5' [*]PAYMENT_CODE = '220421-01' WHERE ID = '40'"; SQL statement:
+UPDATE PAYMENT SET PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]
+2022-04-21 16:45:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET CLIENT_ID = '23' [*]PAYMENT MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]"
+Syntax error in SQL statement "UPDATE PAYMENT SET CLIENT_ID = '23' [*]PAYMENT MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]"; SQL statement:
+UPDATE PAYMENT SET CLIENT_ID = '23' PAYMENT MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210] [42000-210]
+2022-04-21 16:46:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET CLIENT_ID = '23' [*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]"
+Syntax error in SQL statement "UPDATE PAYMENT SET CLIENT_ID = '23' [*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]"; SQL statement:
+UPDATE PAYMENT SET CLIENT_ID = '23' MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210] [42000-210]
+2022-04-21 16:46:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET CLIENT_ID = '23' [*]MEMO = '1' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]"
+Syntax error in SQL statement "UPDATE PAYMENT SET CLIENT_ID = '23' [*]MEMO = '1' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]"; SQL statement:
+UPDATE PAYMENT SET CLIENT_ID = '23' MEMO = '1' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210] [42000-210]
+2022-04-21 16:46:16 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET CLIENT_ID = '23'[*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]"
+Syntax error in SQL statement "UPDATE PAYMENT SET CLIENT_ID = '23'[*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]"; SQL statement:
+UPDATE PAYMENT SET CLIENT_ID = '23'MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210] [42000-210]
+2022-04-21 16:46:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET CLIENT_ID = 23 [*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]"
+Syntax error in SQL statement "UPDATE PAYMENT SET CLIENT_ID = 23 [*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]"; SQL statement:
+UPDATE PAYMENT SET CLIENT_ID = 23 MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210] [42000-210]
+2022-04-21 16:46:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET CLIENT_ID = '23' [*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]"
+Syntax error in SQL statement "UPDATE PAYMENT SET CLIENT_ID = '23' [*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]"; SQL statement:
+UPDATE PAYMENT SET CLIENT_ID = '23' MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210] [42000-210]
+2022-04-21 16:47:53 database: flush
+org.h2.message.DbException: 一般エラー: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]" [50000-210]
+	at org.h2.message.DbException.get(DbException.java:216)
+	at org.h2.message.DbException.convert(DbException.java:414)
+	at org.h2.mvstore.db.Store.lambda$new$0(Store.java:120)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:3296)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:585)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:461)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:4056)
+	at org.h2.mvstore.db.Store.<init>(Store.java:129)
+	at org.h2.engine.Database.<init>(Database.java:324)
+	at org.h2.engine.Engine.openSession(Engine.java:92)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at org.h2.Driver.connect(Driver.java:59)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:681)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:229)
+	at application.PaymentDB.create(PaymentDB.java:112)
+	at application.PaymentDB.CalcTodayCount(PaymentDB.java:52)
+	at application.CodeCreater.CodeCreate(CodeCreater.java:20)
+	at application.Main.start(Main.java:67)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:847)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:484)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:457)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:456)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: 一般エラー: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]" [50000-210]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:573)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:496)
+	... 30 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:1004)
+	at org.h2.mvstore.FileStore.open(FileStore.java:163)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:444)
+	... 24 more
+2022-04-21 16:48:36 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET CLIENT_ID = '23' [*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650527316017' WHERE ID = '40'"
+Syntax error in SQL statement "UPDATE PAYMENT SET CLIENT_ID = '23' [*]MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650527316017' WHERE ID = '40'"; SQL statement:
+UPDATE PAYMENT SET CLIENT_ID = '23' MEMO = '' PRICE = '20000' PUBLISHED_AT = '1650527316017' WHERE ID = '40' [42000-210]
+2022-04-21 16:48:36 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: 有効なデータがありません
+No data is available [2000-210]
+2022-04-21 16:53:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET CLIENT_ID = '23' [*]PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]"
+Syntax error in SQL statement "UPDATE PAYMENT SET CLIENT_ID = '23' [*]PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]"; SQL statement:
+UPDATE PAYMENT SET CLIENT_ID = '23' PRICE = '20000' PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210] [42000-210]
+2022-04-21 16:54:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET PUBLISHED_AT = '1650526250688' [*]ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]"
+Syntax error in SQL statement "UPDATE PAYMENT SET PUBLISHED_AT = '1650526250688' [*]ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]"; SQL statement:
+UPDATE PAYMENT SET PUBLISHED_AT = '1650526250688' ARRIVAL_AT = '2022-04-01' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210] [42000-210]
+2022-04-21 16:55:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET PUBLISHED_AT = '1650526250688' [*]DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]"
+Syntax error in SQL statement "UPDATE PAYMENT SET PUBLISHED_AT = '1650526250688' [*]DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]"; SQL statement:
+UPDATE PAYMENT SET PUBLISHED_AT = '1650526250688' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210] [42000-210]
+2022-04-21 16:56:58 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET PUBLISHED_AT = '1650526250688' [*]DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40'"
+Syntax error in SQL statement "UPDATE PAYMENT SET PUBLISHED_AT = '1650526250688' [*]DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40'"; SQL statement:
+UPDATE PAYMENT SET PUBLISHED_AT = '1650526250688' DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]
+2022-04-21 16:57:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET DEPARTURE_AT = '2022-04-05' [*]PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40'"
+Syntax error in SQL statement "UPDATE PAYMENT SET DEPARTURE_AT = '2022-04-05' [*]PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40'"; SQL statement:
+UPDATE PAYMENT SET DEPARTURE_AT = '2022-04-05' PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]
+2022-04-21 16:57:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET PERSON_COUNT = '5' [*]PAYMENT_CODE = '220421-01' WHERE ID = '40'"
+Syntax error in SQL statement "UPDATE PAYMENT SET PERSON_COUNT = '5' [*]PAYMENT_CODE = '220421-01' WHERE ID = '40'"; SQL statement:
+UPDATE PAYMENT SET PERSON_COUNT = '5' PAYMENT_CODE = '220421-01' WHERE ID = '40' [42000-210]
+2022-04-21 16:58:07 database: flush
+org.h2.message.DbException: 一般エラー: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]" [50000-210]
+	at org.h2.message.DbException.get(DbException.java:216)
+	at org.h2.message.DbException.convert(DbException.java:414)
+	at org.h2.mvstore.db.Store.lambda$new$0(Store.java:120)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:3296)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:585)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:461)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:4056)
+	at org.h2.mvstore.db.Store.<init>(Store.java:129)
+	at org.h2.engine.Database.<init>(Database.java:324)
+	at org.h2.engine.Engine.openSession(Engine.java:92)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at org.h2.Driver.connect(Driver.java:59)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:681)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:229)
+	at application.PaymentDB.create(PaymentDB.java:112)
+	at application.PaymentDB.CalcTodayCount(PaymentDB.java:52)
+	at application.CodeCreater.CodeCreate(CodeCreater.java:20)
+	at application.Main.start(Main.java:67)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:847)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:484)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:457)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:456)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: 一般エラー: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]" [50000-210]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:573)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:496)
+	... 30 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:1004)
+	at org.h2.mvstore.FileStore.open(FileStore.java:163)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:444)
+	... 24 more
+2022-04-21 16:58:27 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET CLIENT_ID = '23', MEMO = '', PRICE = '20000', PUBLISHED_AT = '1650527907489',ARRIVAL_AT = '2022-04-01', DEPARTURE_AT = '2022-04-05', PERSON_COUNT = '6',PAYMENT_CODE = '220421-02', [*]WHERE ID = '40'"; 期待されるステートメント "identifier"
+Syntax error in SQL statement "UPDATE PAYMENT SET CLIENT_ID = '23', MEMO = '', PRICE = '20000', PUBLISHED_AT = '1650527907489',ARRIVAL_AT = '2022-04-01', DEPARTURE_AT = '2022-04-05', PERSON_COUNT = '6',PAYMENT_CODE = '220421-02', [*]WHERE ID = '40'"; expected "identifier"; SQL statement:
+UPDATE PAYMENT SET CLIENT_ID = '23', MEMO = '', PRICE = '20000', PUBLISHED_AT = '1650527907489',ARRIVAL_AT = '2022-04-01', DEPARTURE_AT = '2022-04-05', PERSON_COUNT = '6',PAYMENT_CODE = '220421-02', WHERE ID = '40' [42001-210]
+2022-04-21 16:58:27 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: 有効なデータがありません
+No data is available [2000-210]
+2022-04-21 16:59:05 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: SQLステートメントに文法エラーがあります "UPDATE PAYMENT SET CLIENT_ID = '23', MEMO = '', PRICE = '20000', PUBLISHED_AT = '1650527907489',ARRIVAL_AT = '2022-04-01', DEPARTURE_AT = '2022-04-05', PERSON_COUNT = '6',PAYMENT_CODE = '220421-02', [*]WHERE ID = '40'"; 期待されるステートメント "identifier"
+Syntax error in SQL statement "UPDATE PAYMENT SET CLIENT_ID = '23', MEMO = '', PRICE = '20000', PUBLISHED_AT = '1650527907489',ARRIVAL_AT = '2022-04-01', DEPARTURE_AT = '2022-04-05', PERSON_COUNT = '6',PAYMENT_CODE = '220421-02', [*]WHERE ID = '40'"; expected "identifier"; SQL statement:
+UPDATE PAYMENT SET CLIENT_ID = '23', MEMO = '', PRICE = '20000', PUBLISHED_AT = '1650527907489',ARRIVAL_AT = '2022-04-01', DEPARTURE_AT = '2022-04-05', PERSON_COUNT = '6',PAYMENT_CODE = '220421-02', WHERE ID = '40' [42001-210]
+2022-04-21 16:59:28 database: flush
+org.h2.message.DbException: 一般エラー: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]" [50000-210]
+	at org.h2.message.DbException.get(DbException.java:216)
+	at org.h2.message.DbException.convert(DbException.java:414)
+	at org.h2.mvstore.db.Store.lambda$new$0(Store.java:120)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:3296)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:585)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:461)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:4056)
+	at org.h2.mvstore.db.Store.<init>(Store.java:129)
+	at org.h2.engine.Database.<init>(Database.java:324)
+	at org.h2.engine.Engine.openSession(Engine.java:92)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at org.h2.Driver.connect(Driver.java:59)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:681)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:229)
+	at application.PaymentDB.create(PaymentDB.java:112)
+	at application.PaymentDB.CalcTodayCount(PaymentDB.java:52)
+	at application.CodeCreater.CodeCreate(CodeCreater.java:20)
+	at application.Main.start(Main.java:67)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:847)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:484)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:457)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:456)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: 一般エラー: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]" [50000-210]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:573)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:496)
+	... 30 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:1004)
+	at org.h2.mvstore.FileStore.open(FileStore.java:163)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:444)
+	... 24 more
+2022-04-21 16:59:53 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: 有効なデータがありません
+No data is available [2000-210]
+2022-04-22 09:32:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: データ変換中にエラーが発生しました "null"
+Data conversion error converting "null"; SQL statement:
+SELECT * FROM PAYMENT WHERE ID = 'null' [22018-210]
+2022-04-22 09:33:08 jdbc[6]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: 有効なデータがありません
+No data is available [2000-210]
+2022-04-22 09:36:49 database: flush
+org.h2.message.DbException: 一般エラー: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]" [50000-210]
+	at org.h2.message.DbException.get(DbException.java:216)
+	at org.h2.message.DbException.convert(DbException.java:414)
+	at org.h2.mvstore.db.Store.lambda$new$0(Store.java:120)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:3296)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:585)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:461)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:4056)
+	at org.h2.mvstore.db.Store.<init>(Store.java:129)
+	at org.h2.engine.Database.<init>(Database.java:324)
+	at org.h2.engine.Engine.openSession(Engine.java:92)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at org.h2.Driver.connect(Driver.java:59)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:681)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:229)
+	at application.PaymentDB.create(PaymentDB.java:112)
+	at application.PaymentDB.CalcTodayCount(PaymentDB.java:52)
+	at application.CodeCreater.CodeCreate(CodeCreater.java:20)
+	at application.PaymentEdit.start(PaymentEdit.java:71)
+	at javafx.graphics/com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$9(LauncherImpl.java:847)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runAndWait$12(PlatformImpl.java:484)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$10(PlatformImpl.java:457)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at javafx.graphics/com.sun.javafx.application.PlatformImpl.lambda$runLater$11(PlatformImpl.java:456)
+	at javafx.graphics/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: 一般エラー: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]" [50000-210]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:573)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:496)
+	... 30 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/yuki kono/Downloads/pleiades/workspace/ClientManager/Client.mv.db [2.1.210/7]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:1004)
+	at org.h2.mvstore.FileStore.open(FileStore.java:163)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:444)
+	... 24 more

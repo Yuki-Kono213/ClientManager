@@ -104,6 +104,11 @@ public class Payment_ItemDB {
 			}else if("insert".equals(command)) {
 				executeInsert(args[1], Integer.parseInt(args[2]), Integer.parseInt(args[3]), Integer.parseInt(args[4]));
 			}
+			else if("delete".equals(command)) 
+			{
+
+				executeDeleteClient(args[1]);
+			}
 		}
 		
 		public ObservableList<String> ReturnPaymentItemList(int payment_ID)
@@ -205,7 +210,23 @@ public class Payment_ItemDB {
 			System.out.println("Insert: " + updateCount);
 		}
 		
+		private void executeDeleteClient(String id)
+			throws SQLException{
+			// SQL文を発行
+			try{
+				create();
+				int updateCount = _statement.executeUpdate("DELETE FROM " + TABLE_NAME + " WHERE PAYMENT_ID='" + id + "'");
+				System.out.println("Delete: " + updateCount);
+			}catch(Exception ex) {
+				
+			}
+			finally {
+				close();
+			}
+		}
 		
-	}
-
+		
+		
+	
+}
 

@@ -93,7 +93,6 @@ public class PaymentEdit extends Application {
 				issueDatePicker.setValue(LocalDate.now());
 	
 				grid.add(memoTextField,5,3);
-
 				arrivalDatePicker.setOnAction(new EventHandler<ActionEvent>() {
 					 
 				    @Override
@@ -247,19 +246,15 @@ public class PaymentEdit extends Application {
 		}
 	private void DrawPaymentData(String dateTime) 
 	{
-		Date payment_Time;
 		try 
 		{
 			if(dateTime != null) {
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSS");
 
-				payment_Time = formatter.parse(dateTime);
-			      int payment_ID = new PaymentDB().ReturnPaymentID(payment_Time.getTime());
 			      InputManager  payItems = new PaymentDB().ReturnPaymentBasicData(ID);
-			      payItems = new Payment_ItemDB().ReturnPaymentInputManager(payment_ID, payItems);
+			      payItems = new Payment_ItemDB().ReturnPaymentInputManager(ID, payItems);
 			      
 
-			  	if(payItems.personCount != 0) {
+			  	if(payItems.personCount != null) {
 			  		personTextField.setText(payItems.personCount.toString());
 			  	}
 			  	if(payItems.departureDateTime != null) {
@@ -268,7 +263,12 @@ public class PaymentEdit extends Application {
 			  	if(payItems.arrivalDateTime != null) {
 			  		arrivalDatePicker.setValue(payItems.arrivalDateTime); 
 			  	}
-			  	
+			  	if(payItems.Code != null) {
+			  		codeLabel.setText(payItems.Code); 
+			  	}
+
+
+				CalcPeriod(periodLabel,  departureDatePicker, arrivalDatePicker);
 			  	for(int i =0; i < payItems.nameList.size(); i++) 
 			  	{
 
@@ -337,13 +337,15 @@ public class PaymentEdit extends Application {
     	for(int i =0; i < inputTextNameList.size(); i++)
     	{
     		try {
-    			String name = inputTextNameList.get(i).getText();
-    			int price = Integer.parseInt(inputTextPriceList.get(i).getText());
-    			int amount = Integer.parseInt(inputTextAmountList.get(i).getText());
-    			im.nameList.add(name);
-    			im.priceList.add(price);
-    			im.amountList.add(amount);
+    			if(inputTextNameList.get(i).getText() != "" && inputTextPriceList.get(i).getText() != "" && inputTextAmountList.get(i).getText() != "") {
+	    			String name = inputTextNameList.get(i).getText();
+	    			int price = Integer.parseInt(inputTextPriceList.get(i).getText());
+	    			int amount = Integer.parseInt(inputTextAmountList.get(i).getText());
+	    			im.nameList.add(name);
+	    			im.priceList.add(price);
+	    			im.amountList.add(amount);
     					
+    			}
     		} 
     		catch (NumberFormatException nfex) {
     			totalMoneyList.get(i).setText("");
@@ -366,22 +368,22 @@ public class PaymentEdit extends Application {
 			{
 				im.Directory = saveDirectoryNameLabel2.getText();
 			}
-			System.out.println(im.Directory);
 			
 	    	exw.excelWrite(im);
 	    	if(!userDB.AlreadyExistCheck(im.name)) 
 	    	{
 	    		userDB.UseClientDataBase(new String[] {"insert", im.name, "0","", "1"});
 	    	}
-	    	int id = userDB.GetClient_ID(im.name);
-	    	
+
+	    	int cID = userDB.GetClient_ID(im.name);
 	    	PaymentDB pDB = new PaymentDB();
-	    	
-	    	pDB.UsePaymentDataBase(new String[] {"insert", Integer.toString(id) ,im.memo, Integer.toString(total), Long.toString(new Date().getTime())});
-	    	
+
+	    	pDB.UsePaymentDataBase(new String[] {"update", Integer.toString(cID) ,im.memo, 
+	    			Integer.toString(total), Long.toString(new Date().getTime()),im.arrivalDateTime.toString(),im.departureDateTime.toString(),
+	    			im.personCount.toString(), codeLabel.getText(), Integer.toString(ID)});
 	    	Payment_ItemDB pIDB = new Payment_ItemDB();
 
-	    	int pid = pDB.GetPaymentID(id);
+	    	pIDB.execute(new String[] {"delete",Integer.toString(ID)});
 	    	for(int i = 0; i < inputTextNameList.size(); i++) 
 	    	{
 	    		if(inputTextNameList.get(i).getText() != "" && inputTextPriceList.get(i).getText() != "" && inputTextAmountList.get(i).getText() != "" )
@@ -390,11 +392,10 @@ public class PaymentEdit extends Application {
 	    					inputTextNameList.get(i).getText() ,
 	    					inputTextAmountList.get(i).getText(), 
 	    					inputTextPriceList.get(i).getText(), 
-	    					Integer.toString(pid)});
+	    					Integer.toString(ID)});
 	    		}
 	    		
 	    	}
-			codeLabel.setText(new CodeCreater().CodeCreate(LocalDateTime.now()));
 			errorLabel.setText("入力に成功しました。");
 	    	
 		} 

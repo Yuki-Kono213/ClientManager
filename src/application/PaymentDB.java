@@ -149,7 +149,9 @@ public class PaymentDB {
 				executeInsert(Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]), Long.parseLong(args[4])
 						,args[5],args[6],Integer.parseInt(args[7]),args[8]);
 			}else if("update".equals(command)) {
-				executeUpdate(args[1], args[2], args[3]);
+
+				executeUpdate(Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]), Long.parseLong(args[4])
+						,args[5],args[6],Integer.parseInt(args[7]),args[8],args[9]);
 			}else if("delete".equals(command)) {
 				executeDelete(args[1]);
 			}
@@ -192,11 +194,6 @@ public class PaymentDB {
 
 					resultSet = _statement.executeQuery("SELECT * FROM " + TABLE_NAME + " WHERE ID = '"+ID+"' ");
 					resultSet.first();
-
-				      System.out.println(resultSet.getString("DEPARTURE_AT"));
-				      System.out.println(resultSet.getString("ARRIVAL_AT"));
-				      System.out.println(resultSet.getInt("PERSON_COUNT"));
-				      System.out.println(resultSet.getString("PAYMENT_CODE"));
 					im.departureDateTime = TimeUtil.toLocalDateTime(resultSet.getString("DEPARTURE_AT"),"yyyy-MM-dd");
 					im.arrivalDateTime = TimeUtil.toLocalDateTime(resultSet.getString("ARRIVAL_AT"),"yyyy-MM-dd");
 					im.personCount = resultSet.getInt("PERSON_COUNT");
@@ -297,13 +294,17 @@ public class PaymentDB {
 			}
 		}
 		
-		private void executeUpdate(String id, String name, String password)
+		private void executeUpdate(Integer client_ID, String memo, Integer price, Long time, String arrival, 
+				String departure, Integer count,String code,String id)
 				throws SQLException{
 				// SQL文を発行
-				int updateCount = _statement.executeUpdate("UPDATE " + TABLE_NAME + " SET NAME='"+name+"', PASSWORD='"+password+"' WHERE ID='" + id + "'");
+				int updateCount = _statement.executeUpdate("UPDATE " + TABLE_NAME + 
+						" SET CLIENT_ID = '"+client_ID+"', MEMO = '"+memo+"', PRICE = '"+price+"', PUBLISHED_AT = '"+time+"',"
+						+ "ARRIVAL_AT = '"+arrival+"', DEPARTURE_AT = '"+departure+"', PERSON_COUNT = '"+count+"',"
+								+ "PAYMENT_CODE = '"+code+"' WHERE ID = '"+id+"'");
 				System.out.println("Update: " + updateCount);
-		}
-		
+				
+			}
 		/**
 		 * DELETE処理を実行します。
 		 * @param id
@@ -311,6 +312,9 @@ public class PaymentDB {
 		private void executeDelete(String id)
 			throws SQLException{
 			// SQL文を発行
+			
+			Payment_ItemDB paymentItemDB = new Payment_ItemDB();
+			paymentItemDB.execute(new String[]{"delete",id});
 			int updateCount = _statement.executeUpdate("DELETE FROM " + TABLE_NAME + " WHERE ID='" + id + "'");
 			System.out.println("Delete: " + updateCount);
 		}

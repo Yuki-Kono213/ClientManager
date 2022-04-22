@@ -60,6 +60,35 @@ public class ClientWindow extends Application {
 			    	}
 			    }
 			});
+
+			ListView<String> paymentList = new ListView<>();
+			Button deletePaymentButton = new Button("削除");
+			grid.add(deletePaymentButton, 4, 1);
+			deletePaymentButton.setOnAction(new EventHandler<ActionEvent>() {
+				
+			    @Override
+			    public void handle(ActionEvent e) {
+
+			    	if(dateTime != "") 
+			    	{
+			    		try
+			    		{
+						    System.out.println(dateTime);
+						    new PaymentDB().UsePaymentDataBase(new String[]{"delete",ID.toString()});
+						    int paymentClient_ID = new UserDB().GetClient_ID(name);
+							ObservableList<String> payItems = FXCollections
+									.observableArrayList(new PaymentDB().ReturnPaymentList(paymentClient_ID));
+							paymentList.setItems(payItems);
+				    	} catch (ClassNotFoundException ex) {
+							// TODO 自動生成された catch ブロック
+							ex.printStackTrace();
+						} catch (SQLException ex) {
+							// TODO 自動生成された catch ブロック
+							ex.printStackTrace();
+						}
+			    	}
+			    }
+			});
 			
 			List<Label> itemList= new ArrayList<Label>();
 			for(int i =0; i < 8; i++) {
@@ -88,7 +117,6 @@ public class ClientWindow extends Application {
 				}
 			});
 
-			ListView<String> paymentList = new ListView<>();
 			
 			clientList.getSelectionModel().selectedItemProperty()
 					.addListener((ObservableValue<? extends String> ov, String old_val, String new_val) -> {
