@@ -1,2 +1,2 @@
-C:\Users\yuki kono\Desktop\ClientManager
-C:\Users\yuki kono\Documents\新しいフォルダー (2)
+保存先1　保存先変更でディレクトリを選択してください
+保存先2　保存先変更でディレクトリを選択してください
