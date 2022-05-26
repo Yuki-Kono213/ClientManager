@@ -53,7 +53,7 @@ public class PaymentDB {
 				ZonedDateTime zdt = time.atStartOfDay(ZoneOffset.ofHours(+9));
 				long beginlong = zdt.toInstant().toEpochMilli();
 
-				LocalDate endTime =LocalDate.of(time.getYear(), time.getMonthValue(), (time.getDayOfMonth() + 1)); 
+				LocalDate endTime = time.plusDays(1);   
 				zdt = endTime.atStartOfDay(ZoneOffset.ofHours(+9));
 				long endlong = zdt.toInstant().toEpochMilli();
 				
@@ -73,6 +73,7 @@ public class PaymentDB {
 				
 
 			      System.out.println(ex);
+			      System.out.println(_connection);
 			}
 			finally {
 				close();
