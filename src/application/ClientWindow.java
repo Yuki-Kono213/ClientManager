@@ -31,7 +31,7 @@ public class ClientWindow extends Application {
 		try {
 			dateTime = "";
 			name = "";
-			ID = 0;
+			ID = 0; 
 			GridPane grid = new GridPane();
 			grid.setAlignment(Pos.CENTER);
 			grid.setHgap(10);
