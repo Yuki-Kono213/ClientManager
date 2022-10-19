@@ -50,6 +50,9 @@ public class Main extends Application {
 	Label saveDirectoryNameLabel2 = new Label();
 	public void start(Stage primaryStage) {
 		try {
+				arrivalDatePicker.setEditable(false);
+				departureDatePicker.setEditable(false);
+				issueDatePicker.setEditable(false);
 				GridPane grid = new GridPane();
 				grid.setAlignment(Pos.CENTER);
 				grid.setHgap(10);
@@ -120,6 +123,7 @@ public class Main extends Application {
 					totalMoneyList.get(i).setPrefWidth(150);
 					grid.add(totalMoneyList.get(i),6,i+4);
 				}
+				inputTextNameList.get(0).setText("宿泊代金");
 				Label saveDirectoryLabel = new Label("保存先");
 				grid.add(saveDirectoryLabel, 0, 12);
 				
@@ -256,19 +260,30 @@ public class Main extends Application {
 			}
 		}
 	public void SetItemDraw(int index) {
-		if(arrivalDatePicker.getValue() == null || departureDatePicker.getValue() == null ||issueDatePicker.getValue() == null) 
-    	{
 
-    		
-			errorLabel.setText("日付の入力が不正です。");
-			return;
-    	}
-    	else if(personTextField.getText() == "" || nameTextField.getText() == "") 
+		errorLabel.setText("エラー表示");
+		if(personTextField.getText() == "" || nameTextField.getText() == "") 
     	{
 
 			errorLabel.setText("入力されていない欄が利用明細以外に存在します");
 			return;
     	}
+    	else
+    	{
+    		try {
+    			if(Integer.parseInt(personTextField.getText()) < 1) 
+    			{
+    				errorLabel.setText("宿泊人数が0人以下です。");
+    				return;
+    				
+    			}
+    			
+    		} catch (NumberFormatException e) {
+    			errorLabel.setText("宿泊人数の値が不正です");
+    			return;
+    		}
+    	}
+		
     	for(int i =0; i < inputTextNameList.size(); i++)
     	{
     		try {
@@ -283,9 +298,11 @@ public class Main extends Application {
     			}
     			else 
     			{
-    				errorLabel.setText("入力されていない欄が利用明細に存在します");
+
+					errorLabel.setText("利用明細の入力値が不正です。");
     				return;
     			}
+    			
     		}
     	}
     	

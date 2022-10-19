@@ -1,2 +1,2 @@
-保存先1　保存先変更でディレクトリを選択してください
+C:\Users\yuki kono\Downloads\ClientManager
 保存先2　保存先変更でディレクトリを選択してください

@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -18,6 +20,8 @@ public class ExcelWriter {
 	    FileInputStream in = null;
 		try {
 			Row row0;
+			Path filePath = Paths.get("雛形.xlsx").toAbsolutePath();
+			System.out.println(filePath);
 			in = new FileInputStream("雛形.xlsx");
 			workbook = WorkbookFactory.create(in);
 			Sheet sheet = workbook.getSheet("sheet1");
@@ -88,7 +92,9 @@ public class ExcelWriter {
 		      File file = new File(im.Directory + "/"+im.CodeName+".xlsx");
 		      Desktop desktop = Desktop.getDesktop();
 		      desktop.open(file);
-		    }catch(IOException e){
+		    }
+		    catch(IOException e){
+			  System.out.println(in);
 		      System.out.println(e.toString());
 		    }finally{
 		      try {
@@ -103,7 +109,9 @@ public class ExcelWriter {
 		        System.out.println(e.toString());
 		      }
 		    }
-		} catch (IOException e1) {
+		}catch(ExceptionInInitializerError error){
+	    	 error.getCause().printStackTrace();
+	    } catch (IOException e1) {
 			// TODO 自動生成された catch ブロック
 			e1.printStackTrace();
 		}

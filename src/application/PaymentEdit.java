@@ -53,6 +53,9 @@ public class PaymentEdit extends Application {
 	public Integer ID;
 	public void start(Stage primaryStage) {
 		try {
+				arrivalDatePicker.setEditable(false);
+				departureDatePicker.setEditable(false);
+				issueDatePicker.setEditable(false);
 				GridPane grid = new GridPane();
 				grid.setAlignment(Pos.CENTER);
 				grid.setHgap(10);
@@ -286,18 +289,26 @@ public class PaymentEdit extends Application {
 		
 	}
 	public void SetItemDraw(int index) {
-		if(arrivalDatePicker.getValue() == null || departureDatePicker.getValue() == null ||issueDatePicker.getValue() == null) 
-    	{
-
-    		
-			errorLabel.setText("日付の入力が不正です。");
-			return;
-    	}
-    	else if(personTextField.getText() == "" || nameTextField.getText() == "") 
+		if(personTextField.getText() == "" || nameTextField.getText() == "") 
     	{
 
 			errorLabel.setText("入力されていない欄が利用明細以外に存在します");
 			return;
+    	}
+    	else
+    	{
+    		try {
+    			if(Integer.parseInt(personTextField.getText()) < 1) 
+    			{
+    				errorLabel.setText("宿泊人数が0人以下です。");
+    				return;
+    				
+    			}
+    			
+    		} catch (NumberFormatException e) {
+    			errorLabel.setText("宿泊人数の値が不正です");
+    			return;
+    		}
     	}
     	for(int i =0; i < inputTextNameList.size(); i++)
     	{
@@ -313,7 +324,7 @@ public class PaymentEdit extends Application {
     			}
     			else 
     			{
-    				errorLabel.setText("入力されていない欄が利用明細に存在します");
+					errorLabel.setText("利用明細の入力値が不正です。");
     				return;
     			}
     		}
